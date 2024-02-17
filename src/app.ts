@@ -99,26 +99,26 @@ interface CustomRequest extends Request {
     user?: User;
 }
 
-// Middleware para simular inicio de sesión de usuario
-app.use(async (req: CustomRequest, res: Response, next: NextFunction) => {
-    try {
-        // Simular la autenticación del usuario usando un DNI predeterminado
-        const user = await collections.users?.findOne({ 'DNI': '123456789' });
+// // Middleware para simular inicio de sesión de usuario
+// app.use(async (req: CustomRequest, res: Response, next: NextFunction) => {
+//     try {
+//         // Simular la autenticación del usuario usando un DNI predeterminado
+//         const user = await collections.users?.findOne({ 'DNI': '123456789' });
 
-        // Adjuntar el usuario autenticado al objeto de solicitud (req)
-        if (!user) {
-            throw new Error("Usuario no encontrado");
-        }
-        req.user = user;
+//         // Adjuntar el usuario autenticado al objeto de solicitud (req)
+//         if (!user) {
+//             throw new Error("Usuario no encontrado");
+//         }
+//         req.user = user;
 
-        // Llamar a la siguiente función de middleware en la cadena
-        next();
-    } catch (error) {
-        // Manejar errores si la autenticación falla
-        console.error("Error de autenticación:", error);
-        res.status(500).send("Error de autenticación");
-    }
-});
+//         // Llamar a la siguiente función de middleware en la cadena
+//         next();
+//     } catch (error) {
+//         // Manejar errores si la autenticación falla
+//         console.error("Error de autenticación:", error);
+//         res.status(500).send("Error de autenticación");
+//     }
+// });
 
 // Rutas del administrador
 app.use('/admin', adminRouter);
@@ -130,6 +130,13 @@ app.use('/auth', authRouter);
 
 // Iniciar el servidor
 connectToDatabase()
+    .then(async () => {
+        const user = new User('mateo', 'mateo', '123456789', 'Mateo', 'mateo@a.com', { calle: 'a', telf: '555', CP: '46000' });
+        await user.save();
+
+        const admin = new User('admin', 'admin', '987654321', 'Admin', 'admin@a.com', { calle: 'b', telf: '777', CP: '46001' }, [], undefined, 'admin');
+        await admin.save();
+    })
     .then(() => {
         console.log('Conexión a la base de datos exitosa');
         app.listen(port, () => {

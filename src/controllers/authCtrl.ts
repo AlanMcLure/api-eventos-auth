@@ -7,7 +7,7 @@ import { User } from '../models/User.js';
 
 interface CustomRequest<T = Record<string, any>> extends Request {
     user?: User; // Define la propiedad 'user' de tipo 'User'
-  }
+}
 
 export const login = async (req: Request, res: Response) => {
     try {
@@ -52,24 +52,25 @@ export const verifyAuthToken = async (req: CustomRequest, res: Response, next: N
                 if (user) {
                     // Intenta crear manualmente una instancia de User
                     const userInstance = new User(
-                      user.username,
-                      user.password,
-                      user.DNI,
-                      user.name,
-                      user.mail,
-                      user.contacto,
-                      user.cart,
-                      user._id?.toString()
+                        user.username,
+                        user.password,
+                        user.DNI,
+                        user.name,
+                        user.mail,
+                        user.contacto,
+                        user.cart,
+                        user._id?.toString(),
+                        user.role
                     );
-                if (userInstance instanceof User) {
-                    // Adjunta el usuario recuperado al objeto de solicitud (req)
-                    req.user = userInstance;
-                    next(); // Continúa con el siguiente middleware o controlador
-                } else {
-                    // Si no se puede encontrar el usuario correspondiente, devuelve un error genérico
-                    res.status(401).json({ error: 'Error de autenticación' });
+                    if (userInstance instanceof User) {
+                        // Adjunta el usuario recuperado al objeto de solicitud (req)
+                        req.user = userInstance;
+                        next(); // Continúa con el siguiente middleware o controlador
+                    } else {
+                        // Si no se puede encontrar el usuario correspondiente, devuelve un error genérico
+                        res.status(401).json({ error: 'Error de autenticación' });
+                    }
                 }
-            }
             } catch (error) {
                 // Manejo de errores al buscar el usuario en la base de datos
                 console.error('Error al buscar el usuario:', error);
@@ -83,3 +84,12 @@ export const verifyAuthToken = async (req: CustomRequest, res: Response, next: N
     }
 };
 
+export const requireAdmin = (req: CustomRequest, res: Response, next: NextFunction) => {
+    console.log('Rol del usuario:', req.user?.role);
+    console.log('Usuario:', req.user);
+    if (req.user && req.user.role === 'admin') {
+        next(); // El usuario es un administrador, por lo que se puede continuar con el siguiente middleware o controlador
+    } else {
+        res.status(403).json({ error: 'Se requiere ser administrador' }); // El usuario no es un administrador, por lo que se envía un error
+    }
+};
