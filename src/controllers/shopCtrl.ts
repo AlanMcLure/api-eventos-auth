@@ -4,7 +4,7 @@ import { Evento } from "../models/Evento.js";
 import { User } from "../models/User.js";
 
 export interface CustomRequest<T = Record<string, any>> extends Request {
-  user?: User; // Define la propiedad 'user' de tipo 'User'
+  user?: User;
 }
 
 export const getIndex = (req: Request, res: Response, next: NextFunction) => {
@@ -47,6 +47,10 @@ export const getCart = async (req: CustomRequest, res: Response, next: NextFunct
 export const postCart = async (req: CustomRequest, res: Response, next: NextFunction) => {
   const user = req.user;
   const eventoId = req.body.eventoId;
+  const evento = await Evento.findById(eventoId);
+  if (!evento) {
+    return res.status(404).json({ message: 'Evento no encontrado' });
+  }
   try {
     if (user instanceof User) {
       await user.addToCart(eventoId);
@@ -61,11 +65,15 @@ export const postCart = async (req: CustomRequest, res: Response, next: NextFunc
 
 export const deleteCartItem = async (req: CustomRequest, res: Response, next: NextFunction) => {
   const user = req.user;
-  const eventoId = req.body.eventoId;
+  const eventoId = req.params.eventoId;
+  const evento = await Evento.findById(eventoId);
+  if (!evento) {
+    return res.status(404).json({ message: 'Evento no encontrado' });
+  }
   try {
     if (user instanceof User) {
       await user.deleteCartItem(eventoId);
-      res.status(204).send();
+      res.status(200).json({ message: 'Evento eliminado del carrito' });
     } else {
       res.status(401).json({ message: 'Usuario no autenticado' });
     }
@@ -76,11 +84,15 @@ export const deleteCartItem = async (req: CustomRequest, res: Response, next: Ne
 
 export const postCartIncreaseItem = async (req: CustomRequest, res: Response, next: NextFunction) => {
   const user = req.user;
-  const eventoId = req.body.eventoId;
+  const eventoId = req.params.eventoId;
+  const evento = await Evento.findById(eventoId);
+  if (!evento) {
+    return res.status(404).json({ message: 'Evento no encontrado' });
+  }
   try {
     if (user instanceof User) {
       await user.addToCart(eventoId);
-      res.status(201).send();
+      res.status(201).json({ message: 'Cantidad incrementada' });
     } else {
       res.status(401).json({ message: 'Usuario no autenticado' });
     }
@@ -91,10 +103,14 @@ export const postCartIncreaseItem = async (req: CustomRequest, res: Response, ne
 
 export const postCartDecreaseItem = async (req: CustomRequest, res: Response, next: NextFunction) => {
   const user = req.user;
-  const eventoId = req.body.eventoId;
+  const eventoId = req.params.eventoId;
+  const evento = await Evento.findById(eventoId);
+  if (!evento) {
+    return res.status(404).json({ message: 'Evento no encontrado' });
+  }
   try {
     await user?.decreaseCartItem(eventoId);
-    res.status(201).send();
+    res.status(201).json({ message: 'Cantidad decrementada' });
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }
@@ -110,14 +126,15 @@ export const getOrders = async (req: CustomRequest, res: Response, next: NextFun
   }
 }
 
-export const getCheckOut = async (req: CustomRequest, res: Response, next: NextFunction) => {
+export const checkOut = async (req: CustomRequest, res: Response, next: NextFunction) => {
   const user = req.user;
   try {
     const result = await user?.addOrder();
-    result
-      ? console.log("Orden añadida: ", result)
-      : console.log("Error en la order");
-    res.status(204).send();
+    if (result) {
+      res.status(201).json({ message: "Pedido hecho", order: result });
+    } else {
+      res.status(400).json({ message: "Error en el pedido" });
+    }
   } catch (error: any) {
     console.log(error);
     res.status(500).json({ error: "Error al procesar la orden" });

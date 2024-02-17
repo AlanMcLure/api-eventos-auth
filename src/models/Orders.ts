@@ -1,4 +1,5 @@
 import { ObjectId } from "mongodb";
+import { collections } from "../services/databaseService.js";
 
 import { Evento } from "./Evento.js";
 import { User } from "./User.js";
@@ -14,32 +15,9 @@ export interface Order {
     items: OrderItem[]
 }
 
-// 'items.evento._id' 
-//{
-//     date: "2024-02-07 14:00",
-//     user: {
-//         _id: 'adsasdf'
-//         name: 'Pepe',
-//         mail: 'asdfasdf',
-//         ...
-//     }
-//     items: [
-//         {evento: {
-//             _id: 'dasfsd',
-//             nombreEvento: 'Libro',
-//             precio: 34
-//             ...
+export class Order {
 
-//         }
-//         qty: 1}
-//         ,
-//         {
-//             _id: 'dasfsd',
-//             nombreEvento: 'Libro',
-//             precio: 34
-//             ...
-
-//         }
-//     ]
-// }
-
+    static async fetchAll() {
+        return await collections.orders?.find().toArray();
+    }
+}

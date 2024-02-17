@@ -1,0 +1,327 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "api-eventos",
+    "dateExported": "2024-02-17T21:22:38.423Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "23dc47e0-bc9d-4142-8ac1-98b381e73acf",
+            "colId": "98233a48-e728-4ddc-957f-be5d96c20803",
+            "containerId": "",
+            "name": "Home (no auth requerida)",
+            "url": "http://localhost:3001/",
+            "method": "GET",
+            "sortNum": 1250,
+            "created": "2024-02-17T16:35:45.589Z",
+            "modified": "2024-02-17T16:35:50.029Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "cbeba350-368d-4c82-9130-42181c2242fa",
+            "colId": "98233a48-e728-4ddc-957f-be5d96c20803",
+            "containerId": "",
+            "name": "Get eventos (no auth requerida)",
+            "url": "http://localhost:3001/eventos",
+            "method": "GET",
+            "sortNum": 2500,
+            "created": "2024-02-15T23:21:59.118Z",
+            "modified": "2024-02-17T14:03:48.635Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "b116b1fb-d6cf-491f-971f-211a393f521e",
+            "colId": "98233a48-e728-4ddc-957f-be5d96c20803",
+            "containerId": "",
+            "name": "Get evento by id (no auth requerida)",
+            "url": "http://localhost:3001/eventos/65d0e3893aba17f82e386ae0",
+            "method": "GET",
+            "sortNum": 3750,
+            "created": "2024-02-17T16:33:47.834Z",
+            "modified": "2024-02-17T19:27:04.618Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "693c459c-a8f8-4c1f-b3f9-0dc5b31f1af1",
+            "colId": "98233a48-e728-4ddc-957f-be5d96c20803",
+            "containerId": "",
+            "name": "Login (admin)",
+            "url": "http://localhost:3001/auth/login",
+            "method": "POST",
+            "sortNum": 5000,
+            "created": "2024-02-16T15:13:45.911Z",
+            "modified": "2024-02-17T16:29:45.308Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin\"  \n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "f56c1410-d7b7-4a3a-8da8-8df4262be559",
+            "colId": "98233a48-e728-4ddc-957f-be5d96c20803",
+            "containerId": "",
+            "name": "Login (user)",
+            "url": "http://localhost:3001/auth/login",
+            "method": "POST",
+            "sortNum": 6250,
+            "created": "2024-02-17T16:32:49.540Z",
+            "modified": "2024-02-17T16:32:57.525Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"mateo\",\n  \"password\": \"mateo\"  \n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "6198bcee-0050-4a08-a43d-11478266c4d6",
+            "colId": "98233a48-e728-4ddc-957f-be5d96c20803",
+            "containerId": "",
+            "name": "Logout",
+            "url": "http://localhost:3001/auth/logout",
+            "method": "POST",
+            "sortNum": 7500,
+            "created": "2024-02-16T15:33:24.858Z",
+            "modified": "2024-02-16T15:33:38.571Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "e98bf991-b71f-49ec-b4df-44095e3aae91",
+            "colId": "98233a48-e728-4ddc-957f-be5d96c20803",
+            "containerId": "",
+            "name": "Add evento (solo admin)",
+            "url": "http://localhost:3001/admin/add-evento",
+            "method": "POST",
+            "sortNum": 15000,
+            "created": "2024-02-17T13:56:03.031Z",
+            "modified": "2024-02-17T20:39:00.026Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQwYzFiNDBiYjliMGNjZDAzMDJlMGUiLCJpYXQiOjE3MDgyMDIwODYsImV4cCI6MTcwODIwNTY4Nn0.ULcKXxU8VV0P2yCRzB3P3xzgPbVx15FKEREYJlYg7V4"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nombreEvento\": \"FIFA World Cup\",\n  \"fechaEvento\": \"2024-02-15T12:00:00Z\",\n  \"lugar\": \"Qatar\",\n  \"descripcion\": \"Premios de streamers\",\n  \"precio\": 5000\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "907a209c-e270-49e2-9f3e-1faf075e3265",
+            "colId": "98233a48-e728-4ddc-957f-be5d96c20803",
+            "containerId": "",
+            "name": "Edit evento (solo admin)",
+            "url": "http://localhost:3001/admin/edit-evento/65d1196423ce802834d68e83",
+            "method": "PUT",
+            "sortNum": 27500,
+            "created": "2024-02-17T16:28:04.563Z",
+            "modified": "2024-02-17T20:40:40.553Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQwYzFiNDBiYjliMGNjZDAzMDJlMGUiLCJpYXQiOjE3MDgyMDIwODYsImV4cCI6MTcwODIwNTY4Nn0.ULcKXxU8VV0P2yCRzB3P3xzgPbVx15FKEREYJlYg7V4"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nombreEvento\": \"UFC Championship 3\",\n  \"fechaEvento\": \"2024-02-15T12:00:00Z\",\n  \"lugar\": \"Andorra\",\n  \"descripcion\": \"Pelea entre locos\",\n  \"precio\": 50\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "8036890d-3b21-4ebf-9436-6461bb945e1b",
+            "colId": "98233a48-e728-4ddc-957f-be5d96c20803",
+            "containerId": "",
+            "name": "Delete evento (solo admin)",
+            "url": "http://localhost:3001/admin/delete/65d0bddc368f3702c273d23f",
+            "method": "DELETE",
+            "sortNum": 33750,
+            "created": "2024-02-17T16:31:02.394Z",
+            "modified": "2024-02-17T21:09:07.342Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQwYzFiNDBiYjliMGNjZDAzMDJlMGUiLCJpYXQiOjE3MDgyMDIwODYsImV4cCI6MTcwODIwNTY4Nn0.ULcKXxU8VV0P2yCRzB3P3xzgPbVx15FKEREYJlYg7V4"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "a6b91977-45b5-46c5-b0ae-0b5a57a2a452",
+            "colId": "98233a48-e728-4ddc-957f-be5d96c20803",
+            "containerId": "",
+            "name": "Get cart (auth requerida)",
+            "url": "http://localhost:3001/cart",
+            "method": "GET",
+            "sortNum": 35312.5,
+            "created": "2024-02-17T17:39:36.397Z",
+            "modified": "2024-02-17T20:13:43.850Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQwYzFiNDBiYjliMGNjZDAzMDJlMGQiLCJpYXQiOjE3MDgyMDA2NzYsImV4cCI6MTcwODIwNDI3Nn0.Khkl3dj09GjwL5V2J70RO1ib_-rSze_9yn1WqJV5iPo"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "40739257-c69c-455c-87a2-1d857f890bda",
+            "colId": "98233a48-e728-4ddc-957f-be5d96c20803",
+            "containerId": "",
+            "name": "Add to cart (auth requerida)",
+            "url": "http://localhost:3001/add-to-cart",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2024-02-17T15:42:52.967Z",
+            "modified": "2024-02-17T20:26:15.157Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQwYzFiNDBiYjliMGNjZDAzMDJlMGQiLCJpYXQiOjE3MDgyMDA2NzYsImV4cCI6MTcwODIwNDI3Nn0.Khkl3dj09GjwL5V2J70RO1ib_-rSze_9yn1WqJV5iPo"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"eventoId\": \"65d0bddc368f3702c273d23f\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "04b7b072-6571-416b-8c29-1f953b75ecd3",
+            "colId": "98233a48-e728-4ddc-957f-be5d96c20803",
+            "containerId": "",
+            "name": "Increase cart item (auth requerida)",
+            "url": "http://localhost:3001/cart/increase-item/65d0bc8cb12c10d73693e528",
+            "method": "POST",
+            "sortNum": 45000,
+            "created": "2024-02-17T17:13:13.667Z",
+            "modified": "2024-02-17T20:20:44.146Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQwYzFiNDBiYjliMGNjZDAzMDJlMGQiLCJpYXQiOjE3MDgyMDA2NzYsImV4cCI6MTcwODIwNDI3Nn0.Khkl3dj09GjwL5V2J70RO1ib_-rSze_9yn1WqJV5iPo"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "8bb5049b-e1f4-4d5d-b83a-ce1340ade94d",
+            "colId": "98233a48-e728-4ddc-957f-be5d96c20803",
+            "containerId": "",
+            "name": "Decrease cart item (auth requerida)",
+            "url": "http://localhost:3001/cart/decrease-item/65d0bc8cb12c10d73693e528",
+            "method": "POST",
+            "sortNum": 47500,
+            "created": "2024-02-17T17:13:17.639Z",
+            "modified": "2024-02-17T20:21:28.360Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQwYzFiNDBiYjliMGNjZDAzMDJlMGQiLCJpYXQiOjE3MDgyMDA2NzYsImV4cCI6MTcwODIwNDI3Nn0.Khkl3dj09GjwL5V2J70RO1ib_-rSze_9yn1WqJV5iPo"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "34cd2e0d-225f-4265-9915-50f40f24e6ba",
+            "colId": "98233a48-e728-4ddc-957f-be5d96c20803",
+            "containerId": "",
+            "name": "Delete cart item (auth requerida)",
+            "url": "http://localhost:3001/cart/delete-item/65d0bddc368f3702c273d23f",
+            "method": "DELETE",
+            "sortNum": 48750,
+            "created": "2024-02-17T17:13:21.109Z",
+            "modified": "2024-02-17T20:23:31.890Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQwYzFiNDBiYjliMGNjZDAzMDJlMGQiLCJpYXQiOjE3MDgxOTg2NjIsImV4cCI6MTcwODIwMjI2Mn0.3NhILIefuHwy6FOdx8vrbVhhGfHqdxdIRieBU5ZcNx4"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "258009ed-2685-4771-9764-6ee8bba06f55",
+            "colId": "98233a48-e728-4ddc-957f-be5d96c20803",
+            "containerId": "",
+            "name": "Checkout (auth requerida)",
+            "url": "http://localhost:3001/cart/checkout",
+            "method": "POST",
+            "sortNum": 58750,
+            "created": "2024-02-17T16:40:16.920Z",
+            "modified": "2024-02-17T20:28:30.515Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQwYzFiNDBiYjliMGNjZDAzMDJlMGQiLCJpYXQiOjE3MDgyMDA2NzYsImV4cCI6MTcwODIwNDI3Nn0.Khkl3dj09GjwL5V2J70RO1ib_-rSze_9yn1WqJV5iPo"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "454ffdd4-f634-463a-9622-b8a21edcf69a",
+            "colId": "98233a48-e728-4ddc-957f-be5d96c20803",
+            "containerId": "",
+            "name": "Get orders (auth requerida)",
+            "url": "http://localhost:3001/orders",
+            "method": "GET",
+            "sortNum": 68750,
+            "created": "2024-02-17T17:45:34.433Z",
+            "modified": "2024-02-17T20:28:40.427Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQwYzFiNDBiYjliMGNjZDAzMDJlMGQiLCJpYXQiOjE3MDgyMDA2NzYsImV4cCI6MTcwODIwNDI3Nn0.Khkl3dj09GjwL5V2J70RO1ib_-rSze_9yn1WqJV5iPo"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "eea92d17-d9b7-4d69-bad1-f27ac3c296ec",
+            "colId": "98233a48-e728-4ddc-957f-be5d96c20803",
+            "containerId": "",
+            "name": "Get all orders (solo admin)",
+            "url": "http://localhost:3001/admin/orders",
+            "method": "GET",
+            "sortNum": 78750,
+            "created": "2024-02-17T18:05:10.314Z",
+            "modified": "2024-02-17T20:35:46.222Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQwYzFiNDBiYjliMGNjZDAzMDJlMGUiLCJpYXQiOjE3MDgyMDIwODYsImV4cCI6MTcwODIwNTY4Nn0.ULcKXxU8VV0P2yCRzB3P3xzgPbVx15FKEREYJlYg7V4"
+                }
+            ],
+            "params": [],
+            "tests": []
+        }
+    ]
+}

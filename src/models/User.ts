@@ -3,7 +3,6 @@ import { ObjectId } from "mongodb"
 import { collections } from "../services/databaseService.js";
 import { Order } from "./Orders.js";
 
-
 interface address {
     calle: string,
     telf: string,
@@ -54,8 +53,6 @@ export class User {
         return await collections.users?.findOne({ _id: new ObjectId(id) });
     }
     static async fetchUserByUsernameAndPassword(username: string, password: string): Promise<User | null> {
-        // Implementa la lógica para buscar un usuario por nombre de usuario y contraseña
-        // Aquí podrías usar la colección de usuarios de tu base de datos para realizar la búsqueda
         try {
             const user = await collections.users?.findOne({ username: username, password: password });
             return user ? new User(user.username, user.password, user.DNI, user.name, user.mail, user.contacto, user.cart, user._id?.toString(), user.role) : null;
@@ -90,10 +87,8 @@ export class User {
     }
     async deleteCartItem(id: string) {
         const index = this.cart.findIndex(c => {
-            console.log('hola:', c.pid.toHexString(), id);
             return c.pid.toHexString() === id
         });
-        console.log(index);
         if (index >= 0) {
             this.cart.splice(index, 1);
             return await collections.users?.updateOne({ _id: this._id }, { $set: { cart: this.cart } });
@@ -101,10 +96,8 @@ export class User {
     }
     async decreaseCartItem(id: string) {
         const index = this.cart.findIndex(c => {
-            console.log('hola:', c.pid.toHexString(), id);
             return c.pid.toHexString() === id
         });
-        console.log('index:', index);
         if (index >= 0) {
             const qty = this.cart[index].qty;
             if (qty === 1) {
@@ -122,23 +115,31 @@ export class User {
         if (this.cart.length > 0 && this._id) {
             const eventoIds = this.cart.map(ci => ci.pid); //Listado de todos los ids de los eventos que tengo en el cart
             const eventos = await collections.eventos?.find({ _id: { $in: eventoIds } }).toArray();
-            if (eventos) {
-                const items = eventos.map(e => {
-                    return {
-                        evento: e,
-                        qty: this.cart.find(ci => ci.pid.toHexString() === e._id.toHexString())!.qty
-                    }
-                })
-
-                const time = new Date();
-                this.cart = [];
-                const result = await collections.users!.updateOne({ _id: this._id }, { $set: { cart: [] } });
-                result
-                    ? console.log('UpdateCart: ', result)
-                    : console.log('Cart no vaciado');
-                const newOrder: Order = { user: this, date: time, items: items };
-                return await collections.orders?.insertOne(newOrder);
+            if (!eventos) {
+                console.error('Error: No se encontraron eventos.');
+                return null;
             }
+            const items = eventos.map(e => {
+                return {
+                    evento: e,
+                    qty: this.cart.find(ci => ci.pid.toHexString() === e._id.toHexString())!.qty
+                }
+            })
+
+            const time = new Date();
+            this.cart = [];
+            const result = await collections.users!.updateOne({ _id: this._id }, { $set: { cart: [] } });
+            if (!result) {
+                console.error('Error: No se pudo vaciar el carrito.');
+                return null;
+            }
+            const newOrder: Order = { user: this, date: time, items: items };
+            const orderInsertion = await collections.orders?.insertOne(newOrder);
+            if (!orderInsertion) {
+                console.error('Error: No se pudo insertar la nueva orden.');
+                return null;
+            }
+            return orderInsertion;
         } else {
             return null
         }
